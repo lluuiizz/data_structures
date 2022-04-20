@@ -12,18 +12,21 @@ node_t *head = NULL;
 node_t *tail = NULL;
 
 
-void push_head(int );
+void push_head(int);
 void push_tail(int);
 
 void print_list();
+void get_by_value(node_t **, int);
+void get_by_index (node_t **, int);
 
 int main (void) {
-
-    for (int i = 0; i < 20; ++i) {
+    node_t *value = NULL;
+    for (int i = 0; i < 30; ++i) {
         push_head(i);
-        print_list();
     }
-
+    print_list();
+    get_by_index(&value, 30);
+    
     return 0;
 }
 
@@ -66,6 +69,41 @@ void print_list() {
     }printf("\n");
     
     head = first_node;
+}
 
+void get_by_value (node_t **ptr_value, int value) {
+    node_t *buff_head = head;
+    
+    while (head->next_node != NULL) {
+        if (head->data == value) {
+            (*ptr_value) = head;
+            break;
+        }
+        head = head->next_node;
+    }
+    
+    if ((*ptr_value) == NULL) {
+        printf("Value not in list!\n");
+    }
+    head = buff_head;
+    
+}
 
+void get_by_index (node_t **ptr_value, int index) {
+    node_t *ptr_head = head;
+    
+    for (int i = 0; i < index; ++i) {
+        if (head->next_node == NULL) {
+            printf("Index out of range\n");
+            break;
+        }
+        head = head->next_node;
+    }
+    if (index < 0) {
+        printf("Invalid index!\n");
+    } else {
+        (*ptr_value) = head;
+    }
+    head = ptr_head;
+    
 }
